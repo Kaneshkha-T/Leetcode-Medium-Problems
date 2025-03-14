@@ -1,2 +1,31 @@
 //Contains Duplicate - Leetcode 217
+class Solution {
+    public int checkpalindrome(String s, int Left, int Right){
+        int L = Left, R = Right;
+        while(L>=0 && R<s.length() && s.charAt(L)==s.charAt(R)){
+            L--;
+            R++;
+        }
+        return R-L-1;
 
+    }
+    public String longestPalindrome(String s) {
+         if(s==null || s.length()<1){
+            return "";
+         }
+         
+         int max = Integer.MIN_VALUE;
+         int start =0, end =0;
+         for(int i =0;i<s.length();i++){
+             int len1 = checkpalindrome(s,i,i); //odd
+             int len2 = checkpalindrome(s,i,i+1); //even
+             int result = Math.max(len1,len2);
+             if(max < result){
+                max = result;
+                start = i - (result - 1) / 2;
+                end = i + (result / 2) + 1;
+             }
+         }
+         return s.substring(start,end);
+    }
+}
